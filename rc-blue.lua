@@ -172,7 +172,7 @@ sysmon.widget.battery = redflat.widget.sysmon(
 -- network speed
 sysmon.widget.network = redflat.widget.net(
 	{
-		interface = "wlp3s0",
+		interface = "enp3s0",
 		alert = { up = 4 * 1024^2, down = 4 * 1024^2 },
 		speed = { up = 5 * 1024^2, down = 5 * 1024^2 },
 		autoscale = false
@@ -217,7 +217,7 @@ awful.screen.connect_for_each_screen(
 		env.wallpaper(s)
 
 		-- tags
-		awful.tag({ "Main", "Full", "Edit", "Read", "Free" }, s, { al[5], al[6], al[6], al[4], al[3] })
+		awful.tag({ "WEB", "IM", "CODE", "READ", "FREE" }, s, { al[6], al[2], al[6], al[6], al[6] })
 
 		-- layoutbox widget
 		layoutbox[s] = redflat.widget.layoutbox({ screen = s })
@@ -229,7 +229,7 @@ awful.screen.connect_for_each_screen(
 		tasklist[s] = redflat.widget.tasklist({ screen = s, buttons = tasklist.buttons }, tasklist.style)
 
 		-- panel wibox
-		s.panel = awful.wibar({ position = "bottom", screen = s, height = beautiful.panel_height or 36 })
+		s.panel = awful.wibar({ position = "top", screen = s, height = beautiful.panel_height or 36 })
 
 		-- add widgets to the wibox
 		s.panel:setup {
@@ -253,10 +253,10 @@ awful.screen.connect_for_each_screen(
 				layout = wibox.layout.fixed.horizontal,
 
 				separator,
-				env.wrapper(mail.widget, "mail", mail.buttons),
-				separator,
-				env.wrapper(kbindicator.widget, "keyboard", kbindicator.buttons),
-				separator,
+--				env.wrapper(mail.widget, "mail", mail.buttons),
+--				separator,
+--				env.wrapper(kbindicator.widget, "keyboard", kbindicator.buttons),
+--				separator,
 				env.wrapper(sysmon.widget.network, "network"),
 				separator,
 				env.wrapper(sysmon.widget.cpuram, "cpuram", sysmon.buttons.cpuram),
@@ -266,8 +266,8 @@ awful.screen.connect_for_each_screen(
 				env.wrapper(textclock.widget, "textclock"),
 				separator,
 				env.wrapper(tray.widget, "tray", tray.buttons),
-				separator,
-				env.wrapper(sysmon.widget.battery, "battery"),
+--				separator,
+--				env.wrapper(sysmon.widget.battery, "battery"),
 			},
 		}
 	end

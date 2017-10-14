@@ -712,8 +712,8 @@ theme.naughty.base = {
 	font         = theme.fonts.main,
 	bg           = theme.color.wibox,
 	fg           = theme.color.text,
-	height       = theme.float.notify.geometry.height,
-	width        = theme.float.notify.geometry.width,
+	height       = theme.float.notify.geometry.height + 500,
+	width        = theme.float.notify.geometry.width + 1000,
 	border_width = 4,
 	border_color = theme.color.wibox
 }
