@@ -15,6 +15,7 @@ local hotkeys = { mouse = {}, raw = {}, keys = {}, fake = {} }
 
 -- key aliases
 local apprunner = redflat.float.apprunner
+local devicekit = redflat.float.devicekit
 local appswitcher = redflat.float.appswitcher
 local current = redflat.widget.tasklist.filter.currenttags
 local allscr = redflat.widget.tasklist.filter.allscreen
@@ -146,17 +147,33 @@ function hotkeys:init(args)
 	------------------------------------------------------------
 	local apprunner_keys_move = {
 		{
-			{ env.mod }, "k", function() apprunner:down() end,
+            {}, "Down", function() apprunner:down() end,
 			{ description = "Select next item", group = "Navigation" }
 		},
 		{
-			{ env.mod }, "i", function() apprunner:up() end,
+            {}, "Up", function() apprunner:up() end,
 			{ description = "Select previous item", group = "Navigation" }
 		},
 	}
 
 	-- apprunner:set_keys(awful.util.table.join(apprunner.keys.move, apprunner_keys_move), "move")
 	apprunner:set_keys(apprunner_keys_move, "move")
+
+	-- Devicekit widget
+	------------------------------------------------------------
+	local devicekit_keys_move = {
+		{
+            {}, "Down", function() devicekit:down() end,
+			{ description = "Select next item", group = "Navigation" }
+		},
+		{
+            {}, "Up", function() devicekit:up() end,
+			{ description = "Select previous item", group = "Navigation" }
+		},
+	}
+
+	-- devicekit:set_keys(awful.util.table.join(apprunner.keys.move, apprunner_keys_move), "move")
+	devicekit:set_keys(devicekit_keys_move, "move")
 
 	-- Menu widget
 	------------------------------------------------------------
@@ -620,6 +637,10 @@ function hotkeys:init(args)
 		{
 			{ env.mod }, "r", function() apprunner:show() end,
 			{ description = "Application launcher", group = "Widgets" }
+		},
+		{
+			{ env.mod }, "p", function() devicekit:show() end,
+			{ description = "(TEST) shows devicekit", group = "Widgets" }
 		},
 		{
 			{ env.mod }, "p", function() redflat.float.prompt:run() end,

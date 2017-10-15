@@ -154,6 +154,29 @@ mail.buttons = awful.util.table.join(
 	awful.button({ }, 2, function () redflat.widget.mail:update() end)
 )
 
+-- DeviceKit actions
+local dkit = {}
+-- local onNetworkAdded = function(dkit, data)
+-- 	actions.all = {
+--         {
+--             title = "SSH",
+--             description = "Open SSH shell",
+--             action = function(data) print("Partitions") end,
+--         },
+--         {
+--             title = "Info",
+--             description = "Show drive information",
+--             action = function(data) print("Info") end,
+--         }
+--     }
+-- 	actions.current = awful.util.table.clone(actions.all)
+-- 	self.actionlist:change_items(actions.current)
+--     self.prompt_text = "Network: " .. data.Model .. " => "
+--     self:show()
+-- end
+redflat.float.devicekit:init()
+-- dkit.widget = redflat.float.devicekit()
+
 -- System resource monitoring widgets
 --------------------------------------------------------------------------------
 local sysmon = { widget = {}, buttons = {}, icon = {} }
@@ -164,10 +187,10 @@ sysmon.icon.network = redflat.util.table.check(beautiful, "icon.widget.wireless"
 sysmon.icon.cpuram = redflat.util.table.check(beautiful, "icon.widget.monitor")
 
 -- battery
-sysmon.widget.battery = redflat.widget.sysmon(
-	{ func = redflat.system.pformatted.bat(25), arg = "BAT1" },
-	{ timeout = 60, widget = redflat.gauge.icon.single, monitor = { is_vertical = true, icon = sysmon.icon.battery } }
-)
+-- sysmon.widget.battery = redflat.widget.sysmon(
+-- 	{ func = redflat.system.pformatted.bat(25), arg = "BAT1" },
+-- 	{ timeout = 60, widget = redflat.gauge.icon.single, monitor = { is_vertical = true, icon = sysmon.icon.battery } }
+-- )
 
 -- network speed
 sysmon.widget.network = redflat.widget.net(
