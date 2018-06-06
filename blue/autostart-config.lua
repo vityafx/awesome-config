@@ -22,6 +22,7 @@ function autostart.run()
         "zimbra",
         "workrave",
         "xscreensaver -nosplash",
+        "parcellite",
     }
 
     for _, app in ipairs(to_spawn) do

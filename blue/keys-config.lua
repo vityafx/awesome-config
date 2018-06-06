@@ -135,6 +135,7 @@ function hotkeys:init(args)
 		awful.button({ }, 4, awful.tag.viewnext),
 		awful.button({ }, 5, awful.tag.viewprev)
 	))
+    env.lockscreen = "xscreensaver-command -lock"
 
 	-- Init widgets
 	redflat.float.qlaunch:init()
@@ -573,6 +574,10 @@ function hotkeys:init(args)
 		{
 			{ env.mod, "Control" }, "r", awesome.restart,
 			{ description = "Reload awesome", group = "Main" }
+		},
+		{
+			{ env.mod, "Control" }, "l", function() awful.spawn(env.lockscreen) end,
+			{ description = "Lock screen", group = "Main" }
 		},
 		{
 			{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
