@@ -21,6 +21,7 @@ function autostart.run()
         "skype",
         "zimbra",
         "workrave",
+        "xscreensaver -nosplash",
     }
 
     for _, app in ipairs(to_spawn) do
