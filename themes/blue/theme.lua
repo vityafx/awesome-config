@@ -548,7 +548,7 @@ theme.float.player.icon = {
 -- Application runner
 ------------------------------------------------------------
 theme.float.apprunner = {
-	itemnum       = dpi(6),
+	itemnum       = 6,
 	geometry      = { width = dpi(620), height = dpi(480) },
 	border_margin = { dpi(24), dpi(24), dpi(24), dpi(24) },
 	icon_margin   = { dpi(8), dpi(16), dpi(0), dpi(0) },

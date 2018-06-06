@@ -28,7 +28,7 @@ function env:init(args)
 	self.terminal = args.terminal or "urxvt"
 	self.mod = args.mod or "Mod4"
 	self.fm = args.fm or "nemo"
-	self.mail = args.mail or "evolution"
+	self.mail = args.mail or "thunderbird"
 	self.player = args.player or "Lollypop"
 	self.home = os.getenv("HOME")
 	self.themedir = awful.util.get_configuration_dir() .. "themes/" .. theme
