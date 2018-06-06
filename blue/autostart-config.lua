@@ -27,8 +27,8 @@ function autostart.run()
 	awful.spawn.with_shell("sleep 1 && bash ~/Documents/scripts/kbdd-setup.sh")
 
 	-- apps
-	awful.spawn.with_shell("clipflap")
-	awful.spawn.with_shell("sleep 0.5 && transmission-gtk -m")
+	-- awful.spawn.with_shell("clipflap")
+	-- awful.spawn.with_shell("sleep 0.5 && transmission-gtk -m")
 end
 
 -- End

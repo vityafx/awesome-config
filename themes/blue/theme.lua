@@ -2,6 +2,9 @@
 --                                                   Blue theme                                                      --
 -----------------------------------------------------------------------------------------------------------------------
 local awful = require("awful")
+local beautiful = require("beautiful")
+
+local dpi = beautiful.xresources.apply_dpi
 
 local theme = {}
 local wa = mouse.screen.workarea
@@ -34,11 +37,11 @@ theme.homedir = os.getenv("HOME")
 -- Main config
 ------------------------------------------------------------
 
-theme.panel_height        = 36 -- panel height
-theme.border_width        = 4  -- window border width
-theme.useless_gap         = 4  -- useless gap
+theme.panel_height        = dpi(36) -- panel height
+theme.border_width        = dpi(4)  -- window border width
+theme.useless_gap         = dpi(4)  -- useless gap
 
-theme.cellnum = { x = 96, y = 58 } -- grid layout property
+theme.cellnum = { x = dpi(96), y = dpi(58) } -- grid layout property
 
 theme.wallpaper = theme.path .. "/wallpaper/custom.png" -- wallpaper file
 
@@ -66,11 +69,11 @@ theme.fonts = {
 }
 
 theme.cairo_fonts = {
-	tag         = { font = "Play", size = 16, face = 1 }, -- tag widget font
-	appswitcher = { font = "Play", size = 20, face = 1 }, -- appswitcher widget font
+	tag         = { font = "Play", size = dpi(16), face = 1 }, -- tag widget font
+	appswitcher = { font = "Play", size = dpi(20), face = 1 }, -- appswitcher widget font
 	navigator   = {
-		title = { font = "Play", size = 28, face = 1, slant = 0 }, -- window navigation title font
-		main  = { font = "Play", size = 22, face = 1, slant = 0 }  -- window navigation  main font
+		title = { font = "Play", size = dpi(28), face = 1, slant = 0 }, -- window navigation title font
+		main  = { font = "Play", size = dpi(22), face = 1, slant = 0 }  -- window navigation  main font
 	},
 }
 
@@ -98,7 +101,7 @@ theme.desktop = { common = {} }
 
 -- Common
 --------------------------------------------------------------------------------
-theme.desktop.line_height = 18
+theme.desktop.line_height = dpi(18)
 
 theme.desktop.color = {
 	main  = theme.color.main,
@@ -109,23 +112,23 @@ theme.desktop.color = {
 -- Textbox
 ------------------------------------------------------------
 theme.desktop.common.textbox = {
-	font = { font = "prototype", size = 24, face = 0 }
+	font = { font = "prototype", size = dpi(24), face = 0 }
 }
 
 -- Dashbar
 ------------------------------------------------------------
 theme.desktop.common.dashbar = {
-	bar = { width = 6, gap = 6 }
+	bar = { width = dpi(6), gap = dpi(6) }
 }
 
 -- Barpack
 ------------------------------------------------------------
 theme.desktop.common.barpack = {
-	label_style = { width = 80, draw = "by_width" },
-	text_style  = { width = 92, draw = "by_edges" },
+	label_style = { width = dpi(80), draw = "by_width" },
+	text_style  = { width = dpi(92), draw = "by_edges" },
 	line_height = theme.desktop.line_height,
-	text_gap    = 22,
-	label_gap   = 16,
+	text_gap    = dpi(22),
+	label_gap   = dpi(16),
 	color       = theme.desktop.color
 }
 
@@ -136,22 +139,22 @@ theme.desktop.common.barpack = {
 ------------------------------------------------------------
 theme.desktop.speedmeter = {
 	label            = { height = theme.desktop.line_height },
-	dashbar          = { bar = { width = 16, gap = 6 }, height = 6 },
-	chart            = { bar = { width = 6, gap = 3 }, height = 40, zero_height = 4 },
-	barvalue_height  = 32,
-	fullchart_height = 80,
+	dashbar          = { bar = { width = dpi(16), gap = dpi(6) }, height = dpi(6) },
+	chart            = { bar = { width = dpi(6), gap = dpi(3) }, height = dpi(40), zero_height = dpi(4) },
+	barvalue_height  = dpi(32),
+	fullchart_height = dpi(80),
 	images           = { theme.path .. "/desktop/up.svg", theme.path .. "/desktop/down.svg" },
-	image_gap        = 16,
+	image_gap        = dpi(16),
 	color            = theme.desktop.color
 }
 
 -- CPU and memory
 ------------------------------------------------------------
 theme.desktop.multim = {
-	corner       = { width = 34, corner = { height = 17, num = 10, line = 4 } },
-	state_height = 58,
-	prog_height  = 80,
-	image_gap    = 16,
+	corner       = { width = dpi(34), corner = { height = dpi(17), num = dpi(10), line = dpi(4) } },
+	state_height = dpi(58),
+	prog_height  = dpi(80),
+	image_gap    = dpi(16),
 	image        = theme.path .. "/desktop/bstar.svg",
 	color        = theme.desktop.color
 }
@@ -165,20 +168,20 @@ theme.desktop.dashpack = {
 -- Thermal
 ------------------------------------------------------------
 theme.desktop.sline = {
-	digit_num = 2,
-	lbox      = { draw = "by_width", width = 50 },
-	rbox      = { draw = "by_edges", width = 60 },
+	digit_num = dpi(2),
+	lbox      = { draw = "by_width", width = dpi(50) },
+	rbox      = { draw = "by_edges", width = dpi(60) },
 	icon      = theme.path .. "/desktop/star.svg",
-	iwidth    = 142,
+	iwidth    = dpi(142),
 	color     = theme.desktop.color
 }
 
 -- Widgets placement
 --------------------------------------------------------------------------------
 theme.desktop.grid = {
-	width  = { 520, 520, 520 },
-	height = { 180, 160, 160, 138, 18 },
-	edge   = { width = { 60, 60 }, height = { 40, 40 } }
+	width  = { dpi(520), dpi(520), dpi(520) },
+	height = { dpi(180), dpi(160), dpi(160), dpi(138), dpi(18) },
+	edge   = { width = { dpi(60), dpi(60) }, height = { dpi(40), dpi(40) } }
 }
 
 theme.desktop.places = {
@@ -199,10 +202,10 @@ theme.service = {}
 -- Window control mode appearance
 --------------------------------------------------------------------------------
 theme.service.navigator = {
-	border_width = 0,
-	gradstep     = 60,
-	marksize     = { width = 160, height = 80, r = 20 },
-	linegap      = 32,
+	border_width = dpi(0),
+	gradstep     = dpi(60),
+	marksize     = { width = dpi(160), height = dpi(80), r = dpi(20) },
+	linegap      = dpi(32),
 	titlefont    = theme.cairo_fonts.navigator.title,
 	font         = theme.cairo_fonts.navigator.main,
 	color        = { border = theme.color.main, mark = theme.color.gray, text = theme.color.wibox,
@@ -212,16 +215,16 @@ theme.service.navigator = {
 }
 
 theme.service.navigator.keytip = {}
-theme.service.navigator.keytip["fairv"] = { geometry = { width = 600, height = 440 }, exit = true }
+theme.service.navigator.keytip["fairv"] = { geometry = { width = dpi(600), height = dpi(440) }, exit = true }
 theme.service.navigator.keytip["fairh"] = theme.service.navigator.keytip["fairv"]
 
-theme.service.navigator.keytip["tile"] = { geometry = { width = 600, height = 660 }, exit = true }
+theme.service.navigator.keytip["tile"] = { geometry = { width = dpi(600), height = dpi(660) }, exit = true }
 theme.service.navigator.keytip["tileleft"]   = theme.service.navigator.keytip["tile"]
 theme.service.navigator.keytip["tiletop"]    = theme.service.navigator.keytip["tile"]
 theme.service.navigator.keytip["tilebottom"] = theme.service.navigator.keytip["tile"]
 
-theme.service.navigator.keytip["grid"] = { geometry = { width = 1400, height = 520 }, column = 2, exit = true }
-theme.service.navigator.keytip["usermap"] = { geometry = { width = 1400, height = 580 }, column = 2, exit = true }
+theme.service.navigator.keytip["grid"] = { geometry = { width = dpi(1400), height = dpi(520) }, column = dpi(2), exit = true }
+theme.service.navigator.keytip["usermap"] = { geometry = { width = dpi(1400), height = dpi(580) }, column = dpi(2), exit = true }
 
 -- Desktop file parser
 --------------------------------------------------------------------------------
@@ -243,14 +246,14 @@ theme.service.dfparser = {
 -- Menu config
 -----------------------------------------------------------------------------------------------------------------------
 theme.menu = {
-	border_width = 4,
+	border_width = dpi(4),
 	screen_gap   = theme.useless_gap + theme.border_width,
-	height       = 32,
-	width        = 250,
-	icon_margin  = { 4, 7, 7, 8 },
-	ricon_margin = { 9, 9, 9, 9 },
+	height       = dpi(32),
+	width        = dpi(250),
+	icon_margin  = { dpi(4), dpi(7), dpi(7), dpi(8) },
+	ricon_margin = { dpi(9), dpi(9), dpi(9), dpi(9) },
 	font         = theme.fonts.menu,
-	keytip       = { geometry = { width = 400, height = 380 } },
+	keytip       = { geometry = { width = dpi(400), height = dpi(380) } },
 	hide_timeout = 1,
 	submenu_icon = theme.path .. "/common/submenu.svg"
 }
@@ -272,8 +275,8 @@ theme.gauge = { tag = {}, task = {}, icon = {}, audio = {}, monitor = {}, graph 
 -- Separator
 ------------------------------------------------------------
 theme.gauge.separator = {
-	marginv = { 2, 2, 4, 4 },
-	marginh = { 6, 6, 3, 3 },
+	marginv = { dpi(2), dpi(2), dpi(4), dpi(4) },
+	marginh = { dpi(6), dpi(6), dpi(3), dpi(3) },
 	color  = theme.color
 }
 
@@ -286,30 +289,30 @@ theme.gauge.icon.single = {
 -- Monitor
 --------------------------------------------------------------
 theme.gauge.monitor.double = {
-	width    = 90,
-	line     = { v_gap = 6 },
-	dmargin  = { 10, 0, 0, 0 },
+	width    = dpi(90),
+	line     = { v_gap = dpi(6) },
+	dmargin  = { dpi(10), dpi(0), dpi(0), dpi(0) },
 	color    = theme.color
 }
 
 -- Tag
 ------------------------------------------------------------
 theme.gauge.tag.blue = {
-	width    = 103,
+	width    = dpi(103),
 	font     = theme.cairo_fonts.tag,
-	point    = { width = 80, height = 3, gap = 27, dx = 5 },
-	text_gap = 20,
+	point    = { width = dpi(80), height = dpi(3), gap = dpi(27), dx = dpi(5) },
+	text_gap = dpi(20),
 	color    = theme.color
 }
 
 -- Task
 ------------------------------------------------------------
 theme.gauge.task.blue = {
-	width    = 80,
+	width    = dpi(80),
 	show_min = true,
 	font     = theme.cairo_fonts.tag,
-	point    = { width = 70, height = 3, gap = 27, dx = 5 },
-	text_gap = 20,
+	point    = { width = dpi(70), height = dpi(3), gap = dpi(27), dx = dpi(5) },
+	text_gap = dpi(20),
 	color    = theme.color
 }
 
@@ -318,17 +321,17 @@ theme.gauge.task.blue = {
 theme.gauge.graph.dots = {
 	column_num   = { 3, 5 }, -- { min, max }
 	row_num      = 3,
-	dot_size     = 5,
-	dot_gap_h    = 4,
+	dot_size     = dpi(5),
+	dot_gap_h    = dpi(4),
 	color        = theme.color
 }
 
 -- Volume indicator
 ------------------------------------------------------------
 theme.gauge.audio.blue = {
-	width   = 75,
-	dash    = { bar = { num = 5, width = 4 }, color = theme.color },
-	dmargin = { 10, 0, 2, 2 },
+	width   = dpi(75),
+	dash    = { bar = { num = dpi(5), width = dpi(4) }, color = theme.color },
+	dmargin = { dpi(10), dpi(0), dpi(2), dpi(2) },
 	icon    = theme.path .. "/widget/headphones.svg",
 	color = { icon = theme.color.icon, mute = theme.color.urgent },
 }
@@ -341,16 +344,16 @@ theme.widget = {}
 -- individual margins for palnel widgets
 ------------------------------------------------------------
 theme.widget.wrapper = {
-	layoutbox   = { 12, 10, 6, 6 },
-	textclock   = { 10, 10, 0, 0 },
-	volume      = { 10, 10, 5, 5 },
-	network     = { 10, 10, 5, 5 },
-	cpuram      = { 10, 10, 5, 5 },
-	keyboard    = { 10, 10, 4, 4 },
-	mail        = { 10, 10, 4, 4 },
-	battery     = { 8, 10, 7, 7 },
-	tray        = { 8, 8, 7, 7 },
-	tasklist    = { 4, 0, 0, 0 }, -- centering tasklist widget
+	layoutbox   = { dpi(12), dpi(10), dpi(6), dpi(6) },
+	textclock   = { dpi(10), dpi(10), dpi(0), dpi(0) },
+	volume      = { dpi(10), dpi(10), dpi(5), dpi(5) },
+	network     = { dpi(10), dpi(10), dpi(5), dpi(5) },
+	cpuram      = { dpi(10), dpi(10), dpi(5), dpi(5) },
+	keyboard    = { dpi(10), dpi(10), dpi(4), dpi(4) },
+	mail        = { dpi(10), dpi(10), dpi(4), dpi(4) },
+	battery     = { dpi(8), dpi(10), dpi(7), dpi(7) },
+	tray        = { dpi(8), dpi(8), dpi(7), dpi(7) },
+	tasklist    = { dpi(4), dpi(0), dpi(0), dpi(0) }, -- centering tasklist widget
 }
 
 -- Pulseaudio volume control
@@ -381,7 +384,7 @@ theme.widget.keyboard = {
 }
 
 theme.widget.keyboard.menu = {
-	width        = 180,
+	width        = dpi(180),
 	color        = { right_icon = theme.color.icon },
 	nohide       = true
 }
@@ -404,9 +407,9 @@ theme.widget.mail = {
 -- Minitray
 ------------------------------------------------------------
 theme.widget.minitray = {
-	border_width = 0,
-	geometry     = { height = 40 },
-	screen_gap   = 2 * theme.useless_gap,
+	border_width = dpi(0),
+	geometry     = { height = dpi(40) },
+	screen_gap   = dpi(2) * theme.useless_gap,
 	color        = { wibox = theme.color.wibox, border = theme.color.wibox },
 	set_position = function()
 		return { x = mouse.screen.workarea.x + mouse.screen.workarea.width,
@@ -442,8 +445,8 @@ theme.widget.layoutbox.icon = {
 }
 
 theme.widget.layoutbox.menu = {
-	icon_margin  = { 8, 12, 9, 9 },
-	width        = 220,
+	icon_margin  = { dpi(8), dpi(12), dpi(9), dpi(9) },
+	width        = dpi(220),
 	auto_hotkey  = true,
 	nohide       = false,
 	color        = { right_icon = theme.color.icon, left_icon = theme.color.icon }
@@ -470,31 +473,31 @@ theme.widget.layoutbox.name_alias = {
 -- Tasklist
 ------------------------------------------------------------
 theme.widget.tasklist = {
-	width       = 70,
-	char_digit  = 5,
+	width       = dpi(70),
+	char_digit  = dpi(5),
 	task        = theme.gauge.task.blue
 }
 
 -- main
 theme.widget.tasklist.winmenu = {
 	micon          = theme.icon,
-	titleline      = { font = theme.fonts.title, height = 25 },
-	menu           = { width = 220, color = { right_icon = theme.color.icon }, ricon_margin = { 9, 9, 9, 9 } },
-	state_iconsize = { width = 18, height = 18 },
+	titleline      = { font = theme.fonts.title, height = dpi(25) },
+	menu           = { width = dpi(220), color = { right_icon = theme.color.icon }, ricon_margin = { dpi(9), dpi(9), dpi(9), dpi(9) } },
+	state_iconsize = { width = dpi(18), height = dpi(18) },
 	layout_icon    = theme.widget.layoutbox.icon,
 	color          = theme.color
 }
 
 -- tasktip
 theme.widget.tasklist.tasktip = {
-	margin = { 8, 8, 4, 4 },
+	margin = { dpi(8), dpi(8), dpi(4), dpi(4) },
 	color  = theme.color
 }
 
 -- tags submenu
 theme.widget.tasklist.winmenu.tagmenu = {
-	width       = 180,
-	icon_margin = { 9, 9, 9, 9 },
+	width       = dpi(180),
+	icon_margin = { dpi(9), dpi(9), dpi(9), dpi(9) },
 	color       = { right_icon = theme.color.icon, left_icon = theme.color.icon },
 }
 
@@ -517,20 +520,20 @@ theme.float = { decoration = {} }
 -- Audio player
 ------------------------------------------------------------
 theme.float.player = {
-	geometry     = { width = 490, height = 130 },
-	screen_gap   = 2 * theme.useless_gap,
-	border_gap   = { 15, 15, 15, 15 },
-	elements_gap = { 15, 0, 0, 0 },
-	control_gap  = { 0, 0, 14, 6 },
-	line_height  = 26,
-	bar_width    = 6,
+	geometry     = { width = dpi(490), height = dpi(130) },
+	screen_gap   = dpi(2) * theme.useless_gap,
+	border_gap   = { dpi(15), dpi(15), dpi(15), dpi(15) },
+	elements_gap = { dpi(15), dpi(0), dpi(0), dpi(0) },
+	control_gap  = { dpi(0), dpi(0), dpi(14), dpi(6) },
+	line_height  = dpi(26),
+	bar_width    = dpi(6),
 	titlefont    = theme.fonts.player.main,
 	artistfont   = theme.fonts.player.main,
 	timefont     = theme.fonts.player.time,
-	dashcontrol  = { color = theme.color, bar = { num = 7 } },
+	dashcontrol  = { color = theme.color, bar = { num = dpi(7) } },
 	progressbar  = { color = theme.color },
-	border_width = 0,
-	timeout      = 1,
+	border_width = dpi(0),
+	timeout      = dpi(1),
 	color        = theme.color
 }
 
@@ -545,15 +548,15 @@ theme.float.player.icon = {
 -- Application runner
 ------------------------------------------------------------
 theme.float.apprunner = {
-	itemnum       = 6,
-	geometry      = { width = 620, height = 480 },
-	border_margin = { 24, 24, 24, 24 },
-	icon_margin   = { 8, 16, 0, 0 },
-	title_height  = 48,
-	prompt_height = 35,
+	itemnum       = dpi(6),
+	geometry      = { width = dpi(620), height = dpi(480) },
+	border_margin = { dpi(24), dpi(24), dpi(24), dpi(24) },
+	icon_margin   = { dpi(8), dpi(16), dpi(0), dpi(0) },
+	title_height  = dpi(48),
+	prompt_height = dpi(35),
 	title_icon    = theme.path .. "/widget/search.svg",
-	keytip        = { geometry = { width = 400, height = 250 } },
-	border_width  = 0,
+	keytip        = { geometry = { width = dpi(400), height = dpi(250) } },
+	border_width  = dpi(0),
 	name_font     = theme.fonts.title,
 	comment_font  = theme.fonts.main,
 	color         = theme.color
@@ -562,17 +565,17 @@ theme.float.apprunner = {
 -- Application switcher
 ------------------------------------------------------------
 theme.float.appswitcher = {
-	wibox_height   = 240,
-	label_height   = 28,
-	title_height   = 40,
-	icon_size      = 96,
-	border_margin  = { 10, 10, 0, 10 },
-	preview_margin = { 15, 15, 15, 15 },
-	preview_format = 16 / 10,
+	wibox_height   = dpi(240),
+	label_height   = dpi(28),
+	title_height   = dpi(40),
+	icon_size      = dpi(96),
+	border_margin  = { dpi(10), dpi(10), dpi(0), dpi(10) },
+	preview_margin = { dpi(15), dpi(15), dpi(15), dpi(15) },
+	preview_format = dpi(16) / dpi(10),
 	title_font     = theme.fonts.title,
-	border_width   = 0,
-	update_timeout = 1 / 12,
-	keytip         = { geometry = { width = 400, height = 360 }, exit = true },
+	border_width   = dpi(0),
+	update_timeout = dpi(1) / dpi(12),
+	keytip         = { geometry = { width = dpi(400), height = dpi(360) }, exit = true },
 	font           = theme.cairo_fonts.appswitcher,
 	color          = theme.color
 }
@@ -587,15 +590,15 @@ theme.float.appswitcher.hotkeys = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
 -- Quick launcher
 ------------------------------------------------------------
 theme.float.qlaunch = {
-	geometry      = { width = 1400, height = 170 },
-	border_margin = { 5, 5, 12, 15 },
-	border_width  = 0,
-	appline       = { iwidth = 140, im = { 5, 5, 0, 0 }, igap = { 0, 0, 5, 15 }, lheight = 26 },
-	state         = { gap = 5, radius = 5, size = 10,  height = 14 },
+	geometry      = { width = dpi(1400), height = dpi(170) },
+	border_margin = { dpi(5), dpi(5), dpi(12), dpi(15) },
+	border_width  = dpi(0),
+	appline       = { iwidth = dpi(140), im = { dpi(5), dpi(5), dpi(0), dpi(0) }, igap = { dpi(0), dpi(0), dpi(5), dpi(15) }, lheight = dpi(26) },
+	state         = { gap = dpi(5), radius = dpi(5), size = dpi(10),  height = dpi(14) },
 	df_icon       = theme.homedir .. "/.icons/ACYLS/scalable/mimetypes/application-x-executable.svg",
 	no_icon       = theme.homedir .. "/.icons/ACYLS/scalable/apps/question.svg",
 	recoloring    = true,
-	keytip        = { geometry = { width = 600, height = 320 } },
+	keytip        = { geometry = { width = dpi(600), height = dpi(320) } },
 	label_font    = theme.fonts.qlaunch,
 	color         = theme.color,
 }
@@ -603,11 +606,11 @@ theme.float.qlaunch = {
 -- Hotkeys helper
 ------------------------------------------------------------
 theme.float.hotkeys = {
-	geometry      = { width = 1800, height = 975 },
-	border_margin = { 20, 20, 8, 10 },
-	border_width  = 0,
+	geometry      = { width = dpi(1800), height = dpi(975) },
+	border_margin = { dpi(20), dpi(20), dpi(8), dpi(10) },
+	border_width  = dpi(0),
 	is_align      = true,
-	separator     = { marginh = { 0, 0, 3, 6 } },
+	separator     = { marginh = { dpi(0), dpi(0), dpi(3), dpi(6) } },
 	font          = theme.fonts.hotkeys.main,
 	keyfont       = theme.fonts.hotkeys.key,
 	titlefont     = theme.fonts.hotkeys.title,
@@ -617,30 +620,30 @@ theme.float.hotkeys = {
 -- Tooltip
 ------------------------------------------------------------
 theme.float.tooltip = {
-	margin       = { 6, 6, 3, 3 },
-	timeout      = 0,
+	margin       = { dpi(6), dpi(6), dpi(3), dpi(3) },
+	timeout      = dpi(0),
 	font         = theme.fonts.tooltip,
-	border_width = 2,
+	border_width = dpi(2),
 	color        = theme.color
 }
 
 -- Floating prompt
 ------------------------------------------------------------
 theme.float.prompt = {
-	border_width = 0,
+	border_width = dpi(0),
 	color        = theme.color
 }
 
 -- Top processes
 ------------------------------------------------------------
 theme.float.top = {
-	geometry      = { width = 460, height = 400 },
-	screen_gap    = 2 * theme.useless_gap,
-	border_margin = { 20, 20, 10, 0 },
-	button_margin = { 140, 140, 18, 18 },
-	title_height  = 40,
-	border_width  = 0,
-	bottom_height = 70,
+	geometry      = { width = dpi(460), height = dpi(400) },
+	screen_gap    = dpi(2) * theme.useless_gap,
+	border_margin = { dpi(20), dpi(20), dpi(10), dpi(0) },
+	button_margin = { dpi(140), dpi(140), dpi(18), dpi(18) },
+	title_height  = dpi(40),
+	border_width  = dpi(0),
+	bottom_height = dpi(70),
 	title_font    = theme.fonts.title,
 	color         = theme.color,
 	set_position  = function()
@@ -652,20 +655,20 @@ theme.float.top = {
 -- Key sequence tip
 ------------------------------------------------------------
 theme.float.keychain = {
-	geometry        = { width = 250, height = 56 },
+	geometry        = { width = dpi(250), height = dpi(56) },
 	font            = theme.fonts.keychain,
-	border_width    = 0,
-	keytip          = { geometry = { width = 1200, height = 580 }, column = 2 },
+	border_width    = dpi(0),
+	keytip          = { geometry = { width = dpi(1200), height = dpi(580) }, column = dpi(2) },
 	color           = theme.color,
 }
 
 -- Notify
 ------------------------------------------------------------
 theme.float.notify = {
-	geometry     = { width = 484, height = 106 },
-	screen_gap   = 2 * theme.useless_gap,
+	geometry     = { width = dpi(484), height = dpi(106) },
+	screen_gap   = dpi(2) * theme.useless_gap,
 	font         = theme.fonts.notify,
-	border_width = 0,
+	border_width = dpi(0),
 	icon         = theme.icon.warning,
 	color        = theme.color,
 	progressbar  = { color = theme.color },
@@ -693,11 +696,11 @@ theme.float.decoration.field = {
 -- Titlebar
 -----------------------------------------------------------------------------------------------------------------------
 theme.titlebar = {
-	size          = 8,
+	size          = dpi(8),
 	position      = "top",
 	font          = theme.fonts.titlebar,
-	icon          = { size = 30, gap = 10 },
-	border_margin = { 0, 0, 0, 4 },
+	icon          = { size = dpi(30), gap = dpi(10) },
+	border_margin = { dpi(0), dpi(0), dpi(0), dpi(4) },
 	color         = theme.color,
 }
 
@@ -706,15 +709,15 @@ theme.titlebar = {
 theme.naughty = {}
 
 theme.naughty.base = {
-	timeout      = 10,
-	margin       = 12,
-	icon_size    = 80,
+	timeout      = dpi(10),
+	margin       = dpi(12),
+	icon_size    = dpi(80),
 	font         = theme.fonts.main,
 	bg           = theme.color.wibox,
 	fg           = theme.color.text,
-	height       = theme.float.notify.geometry.height + 500,
-	width        = theme.float.notify.geometry.width + 1000,
-	border_width = 4,
+	height       = theme.float.notify.geometry.height + dpi(500),
+	width        = theme.float.notify.geometry.width + dpi(1000),
+	border_width = dpi(4),
 	border_color = theme.color.wibox
 }
 
