@@ -7,6 +7,7 @@ appnames = {}
 appnames["Exaile"              ] = "EXAILE"
 appnames["Smplayer"            ] = "SMPL"
 appnames["Firefox"             ] = "FIFOX"
+appnames["Alacritty"           ] = "ALTTY"
 appnames["Gnome-terminal"      ] = "GTERM"
 appnames["Gnome-system-monitor"] = "SYSMN"
 appnames["Gthumb"              ] = "THUMB"

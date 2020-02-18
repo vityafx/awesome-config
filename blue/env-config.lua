@@ -25,9 +25,9 @@ function env:init(args)
 	local theme = args.theme or "red"
 
 	-- environment vars
-	self.terminal = args.terminal or "urxvt"
+	self.terminal = args.terminal or "alacritty"
 	self.mod = args.mod or "Mod4"
-	self.fm = args.fm or "nemo"
+	self.fm = args.fm or "ranger"
 	self.mail = args.mail or "evolution"
 	self.player = args.player or "Lollypop"
 	self.home = os.getenv("HOME")

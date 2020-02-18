@@ -575,6 +575,18 @@ function hotkeys:init(args)
 			{ description = "Reload awesome", group = "Main" }
 		},
 		{
+			{ env.mod, "Control" }, "l", function() awful.spawn("xscreensaver-command -lock") end,
+			{ description = "Lock the screen", group = "Main" }
+		},
+		{
+			{ env.mod, "Control" }, "k", function() awful.spawn("xrandr --output eDP-1 --off") end,
+			{ description = "Kill laptop's monitor", group = "Main" }
+		},
+		{
+			{ env.mod, "Control" }, "n", function() awful.spawn("xrandr --output eDP-1 --auto --right-of DP-2-1") end,
+			{ description = "Reload awesome", group = "Main" }
+		},
+		{
 			{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
 			{ description = "User key sequence", group = "Main" }
 		},
@@ -584,8 +596,8 @@ function hotkeys:init(args)
 			{ description = "Open a terminal", group = "Applications" }
 		},
 		{
-			{ env.mod, "Mod1" }, "space", function() awful.spawn("clipflap --show") end,
-			{ description = "Clipboard manager", group = "Applications" }
+			{ env.mod, "Mod1" }, "space", function() awful.spawn("e") end,
+			{ description = "Spawn remote emacs", group = "Applications" }
 		},
 
 		{
