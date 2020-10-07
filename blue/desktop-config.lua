@@ -33,7 +33,7 @@ function desktop:init(args)
 	local netspeed = { geometry = wgeometry(grid, places.netspeed, workarea) }
 
 	netspeed.args = {
-		interface    = "enp3s0",
+		interface    = "enp4s0",
 		maxspeed     = { up = 5*1024^2, down = 5*1024^2 },
 		crit         = { up = 5*1024^2, down = 5*1024^2 },
 		timeout      = 2,
@@ -47,15 +47,29 @@ function desktop:init(args)
 	local ssdspeed = { geometry = wgeometry(grid, places.ssdspeed, workarea) }
 
 	ssdspeed.args = {
-		interface = "sdb",
+		interface = "nvme0n1p1",
 		meter_function = system.disk_speed,
 		timeout   = 2,
-		label     = "SOLID DRIVE"
+		label     = "970 PRO"
 	}
 
 	ssdspeed.style = {
 		unit   = { { "B", -1 }, { "KB", 2 }, { "MB", 2048 } },
 	}
+
+	-- NVME speed
+	--------------------------------------------------------------------------------
+	local nvmespeed = { geometry = wgeometry(grid, places.nvmespeed, workarea) }
+
+	nvmespeed.args = {
+		interface = "nvme1n1p1",
+		meter_function = system.disk_speed,
+		timeout   = 2,
+		label     = "970 EVO Plus"
+	}
+
+	nvmespeed.style = awful.util.table.clone(ssdspeed.style)
+
 
 	-- HDD speed
 	--------------------------------------------------------------------------------
@@ -65,7 +79,7 @@ function desktop:init(args)
 		interface = "sda",
 		meter_function = system.disk_speed,
 		timeout = 2,
-		label = "HARD DRIVE"
+		label = "VERTEX"
 	}
 
 	hddspeed.style = awful.util.table.clone(ssdspeed.style)
@@ -84,23 +98,6 @@ function desktop:init(args)
 
 	cpumem.style = {}
 
-	-- Transmission info
-	--------------------------------------------------------------------------------
-	local transm = { geometry = wgeometry(grid, places.transm, workarea) }
-
-	transm.args = {
-		corners    = { num = 8, maxm = 100 },
-		lines      = { { maxm = 4*1024, unit = { { "SEED", - 1 } } }, { maxm = 4*1024, unit = { { "DNLD", - 1 } } } },
-		meter      = { func = system.transmission_parse },
-		timeout    = 5,
-		async      = "transmission-remote -l"
-	}
-
-	transm.style = {
-		digit_num = 1,
-		image     = env.themedir .. "/desktop/skull.svg"
-	}
-
 	-- Disks
 	--------------------------------------------------------------------------------
 	local disks = { geometry = wgeometry(grid, places.disks, workarea) }
@@ -108,11 +105,10 @@ function desktop:init(args)
 	disks.args = {
 		sensors  = {
 			{ meter_function = system.fs_info, maxm = 100, crit = 80, args = "/" },
-			{ meter_function = system.fs_info, maxm = 100, crit = 80, args = "/home" },
-			{ meter_function = system.fs_info, maxm = 100, crit = 80, args = "/opt" },
-			{ meter_function = system.fs_info, maxm = 100, crit = 80, args = "/mnt/media" }
+			{ meter_function = system.fs_info, maxm = 100, crit = 80, args = "/home/fx" },
+			{ meter_function = system.fs_info, maxm = 100, crit = 80, args = "/s" },
 		},
-		names   = {"root", "home", "misc", "data"},
+		names   = {"root", "home", "data"},
 		timeout = 300
 	}
 
@@ -128,10 +124,10 @@ function desktop:init(args)
 	thermal.args = {
 		sensors = {
 			{ meter_function = system.thermal.sensors, args = "'Package id 0'", maxm = 100, crit = 75 },
-			{ meter_function = system.thermal.hddtemp, args = { disk = "/dev/sdb" }, maxm = 60, crit = 45 },
-			{ meter_function = system.thermal.nvoptimus, maxm = 105, crit = 80 }
+			{ meter_function = system.thermal.liquid, args = "Liquid temperature", maxm = 51, crit = 42 },
+			{ meter_function = system.thermal.sensors_nvme, args = "'nvme-pci-7000'", maxm = 70, crit = 60 }
 		},
-		names   = { "cpu", "hdd", "gpu" },
+		names   = { "cpu", "h2o", "evo" },
 		timeout = 5
 	}
 
@@ -139,16 +135,34 @@ function desktop:init(args)
 		unit      = { { "°C", -1 } },
 	}
 
+	-- Second Temperature and information indicator
+	--------------------------------------------------------------------------------
+	local thermal2 = { geometry = wgeometry(grid, places.thermal2, workarea) }
+
+	thermal2.args = {
+		sensors = {
+			{ meter_function = system.thermal.nvidiasmi, args = "'GPU Current Temp'", maxm = 100, crit = 90 },
+			{ meter_function = system.thermal.sensors_nvme, args = "'nvme-pci-0200'", maxm = 70, crit = 60 },
+		},
+		names   = { "gpu", "pro" },
+		timeout = 5
+	}
+
+	thermal2.style = {
+		unit      = { { "°C", -1 } },
+	}
+
 	-- Initialize all desktop widgets
 	--------------------------------------------------------------------------------
-	netspeed.widget = redflat.desktop.speedgraph(netspeed.args, netspeed.geometry, netspeed.style)
-	ssdspeed.widget = redflat.desktop.speedgraph(ssdspeed.args, ssdspeed.geometry, ssdspeed.style)
-	hddspeed.widget = redflat.desktop.speedgraph(hddspeed.args, hddspeed.geometry, hddspeed.style)
-	cpumem.widget = redflat.desktop.multim(cpumem.args, cpumem.geometry, cpumem.style)
-	transm.widget = redflat.desktop.multim(transm.args, transm.geometry, transm.style)
+    --netspeed.widget = redflat.desktop.speedgraph(netspeed.args, netspeed.geometry, netspeed.style)
+	--ssdspeed.widget = redflat.desktop.speedgraph(ssdspeed.args, ssdspeed.geometry, ssdspeed.style)
+	--nvmespeed.widget = redflat.desktop.speedgraph(nvmespeed.args, nvmespeed.geometry, nvmespeed.style)
+	--hddspeed.widget = redflat.desktop.speedgraph(hddspeed.args, hddspeed.geometry, hddspeed.style)
+	--cpumem.widget = redflat.desktop.multim(cpumem.args, cpumem.geometry, cpumem.style)
     disks.widget = nil
 	-- disks.widget = redflat.desktop.dashpack(disks.args, disks.geometry, disks.style)
 	thermal.widget = redflat.desktop.simpleline(thermal.args, thermal.geometry, thermal.style)
+	thermal2.widget = redflat.desktop.simpleline(thermal2.args, thermal2.geometry, thermal2.style)
 end
 
 -- End

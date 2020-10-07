@@ -8,6 +8,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 
 local redflat = require("redflat")
+local redutil = require("redflat.util")
 
 -- Initialize tables and vars for module
 -----------------------------------------------------------------------------------------------------------------------
@@ -42,6 +43,31 @@ local focus_switch_byd = function(dir)
 		awful.client.focus.bydirection(dir)
 		if client.focus then client.focus:raise() end
 	end
+end
+
+-- enable gsync
+local gsync_enabled = false
+--redutil.read.output("ddcutil -l XG270 getvcp ed | ag sl=0x01") or false
+awful.spawn.easy_async("ddcutil -l XG270 getvcp ed | ag sl=0x01", function(stdout)
+    if stdout == '' or stdout == nil then
+        gsync_enabled = true
+        redflat.float.notify:show({ text = "GSync is On" })
+    else
+        gsync_enabled = false
+        redflat.float.notify:show({ text = "GSync is Off" })
+    end
+end)
+local function toggle_gsync()
+    gsync_enabled = not gsync_enabled
+    local value = "0x00"
+    if gsync_enabled then
+        value = "0x01"
+	    redflat.float.notify:show({ text = "Enabling GSync" })
+    else
+	    redflat.float.notify:show({ text = "Disabling GSync" })
+    end
+
+    awful.spawn.easy_async("ddcutil -l XG270 setvcp ed " .. value)
 end
 
 -- minimize and restore windows
@@ -109,6 +135,7 @@ end
 local volume_raise = function() redflat.widget.pulse:change_volume({ show_notify = true })              end
 local volume_lower = function() redflat.widget.pulse:change_volume({ show_notify = true, down = true }) end
 local volume_mute  = function() redflat.widget.pulse:mute() end
+local change_audio_output = function() redflat.widget.pulse:change_output({ show_notify = true })     end
 
 -- brightness functions
 local brightness = function(args)
@@ -595,15 +622,23 @@ function hotkeys:init(args)
 			{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
 			{ description = "User key sequence", group = "Main" }
 		},
+		{
+            { env.mod }, "z", function() awful.screen.focus_relative(1) end,
+            { description = "Focus another screen", group = "Main" }
+		},
+		{
+            { env.mod }, "g", toggle_gsync,
+            { description = "Toggle gsync", group = "Main" }
+		},
 
 		{
 			{ env.mod }, "Return", function() awful.spawn(env.terminal) end,
 			{ description = "Open a terminal", group = "Applications" }
 		},
-		{
-			{ env.mod, "Mod1" }, "space", function() awful.spawn("clipflap --show") end,
-			{ description = "Clipboard manager", group = "Applications" }
-		},
+--		{
+--			{ env.mod, "Mod1" }, "space", function() awful.spawn("clipflap --show") end,
+--			{ description = "Clipboard manager", group = "Applications" }
+--		},
 
 		{
 			{ env.mod }, "l", focus_switch_byd("right"),
@@ -650,18 +685,18 @@ function hotkeys:init(args)
 			{ env.mod }, "x", function() redflat.float.top:show("cpu") end,
 			{ description = "Show the top process list", group = "Widgets" }
 		},
-		{
-			{ env.mod, "Control" }, "m", function() redflat.widget.mail:update() end,
-			{ description = "Check new mail", group = "Widgets" }
-		},
+--		{
+--			{ env.mod, "Control" }, "m", function() redflat.widget.mail:update() end,
+--			{ description = "Check new mail", group = "Widgets" }
+--		},
 		{
 			{ env.mod, "Control" }, "i", function() redflat.widget.minitray:toggle() end,
 			{ description = "Show minitray", group = "Widgets" }
 		},
-		{
-			{ env.mod, "Control" }, "u", function() redflat.widget.upgrades:update(true) end,
-			{ description = "Check available upgrades", group = "Widgets" }
-		},
+--		{
+--			{ env.mod, "Control" }, "u", function() redflat.widget.upgrades:update(true) end,
+--			{ description = "Check available upgrades", group = "Widgets" }
+--		},
 		{
 			{ env.mod }, "F3", function() qlaunch:show() end,
 			{ description = "Application quick launcher", group = "Widgets" }
@@ -735,23 +770,27 @@ function hotkeys:init(args)
 			{ env.mod }, "v", volume_mute,
 			{ description = "Toggle mute", group = "Volume control" }
 		},
+		{
+			{ env.mod }, "b", change_audio_output,
+			{ description = "Change output", group = "Volume control" }
+		},
 
-		{
-			{ env.mod }, "e", function() redflat.float.player:show(rb_corner()) end,
-			{ description = "Show/hide widget", group = "Audio player" }
-		},
-		{
-			{}, "XF86AudioPlay", function() redflat.float.player:action("PlayPause") end,
-			{ description = "Play/Pause track", group = "Audio player" }
-		},
-		{
-			{}, "XF86AudioNext", function() redflat.float.player:action("Next") end,
-			{ description = "Next track", group = "Audio player" }
-		},
-		{
-			{}, "XF86AudioPrev", function() redflat.float.player:action("Previous") end,
-			{ description = "Previous track", group = "Audio player" }
-		},
+--		{
+--			{ env.mod }, "e", function() redflat.float.player:show(rb_corner()) end,
+--			{ description = "Show/hide widget", group = "Audio player" }
+--		},
+--		{
+--			{}, "XF86AudioPlay", function() redflat.float.player:action("PlayPause") end,
+--			{ description = "Play/Pause track", group = "Audio player" }
+--		},
+--		{
+--			{}, "XF86AudioNext", function() redflat.float.player:action("Next") end,
+--			{ description = "Next track", group = "Audio player" }
+--		},
+--		{
+--			{}, "XF86AudioPrev", function() redflat.float.player:action("Previous") end,
+--			{ description = "Previous track", group = "Audio player" }
+--		},
 
 		{
 			{ env.mod }, "y", function() laybox:toggle_menu(mouse.screen.selected_tag) end,
@@ -773,6 +812,10 @@ function hotkeys:init(args)
 		{
 			{ env.mod }, "f", function(c) c.fullscreen = not c.fullscreen; c:raise() end,
 			{ description = "Toggle fullscreen", group = "Client keys" }
+		},
+		{
+			{ env.mod }, "o", awful.client.movetoscreen,
+			{ description = "Move to another screen", group = "Client keys" }
 		},
 		{
 			{ env.mod }, "F4", function(c) c:kill() end,
@@ -844,8 +887,8 @@ function hotkeys:init(args)
 	self.mouse.client = awful.util.table.join(
 		awful.button({}, 1, function (c) client.focus = c; c:raise() end),
 		awful.button({}, 2, awful.mouse.client.move),
-		awful.button({ env.mod }, 3, awful.mouse.client.resize),
-		awful.button({}, 8, function(c) c:kill() end)
+		awful.button({ env.mod }, 3, awful.mouse.client.resize)
+--		awful.button({}, 8, function(c) c:kill() end)
 	)
 
 	-- Set root hotkeys

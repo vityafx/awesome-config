@@ -13,9 +13,10 @@ local autostart = {}
 --------------------------------------------------------------------------------
 function autostart.run()
 	-- utils
-	awful.spawn.with_shell("compton")
-	awful.spawn.with_shell("pulseaudio")
+	--awful.spawn.with_shell("compton")
+    awful.spawn.with_shell("pulseaudio --start")
 	awful.spawn.with_shell("nm-applet")
+	awful.spawn.with_shell("clipit")
 	awful.spawn.with_shell("sleep 0.5 && bash ~/Documents/scripts/ff-sync.sh")
 
 	-- gnome environment
@@ -29,6 +30,10 @@ function autostart.run()
 	-- apps
 	awful.spawn.with_shell("clipflap")
 	awful.spawn.with_shell("sleep 0.5 && transmission-gtk -m")
+    -- gsync enable
+    awful.spawn.with_shell("ddcutil -l XG270 setvcp ed 0x01")
+    --awful.spawn.with_shell("firefox")
+    --awful.spawn.with_shell("emacs --daemon")
 end
 
 -- End

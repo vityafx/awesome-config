@@ -195,7 +195,7 @@ sysmon.icon.cpuram = redflat.util.table.check(beautiful, "icon.widget.monitor")
 -- network speed
 sysmon.widget.network = redflat.widget.net(
 	{
-		interface = "enp3s0",
+		interface = "enp4s0",
 		alert = { up = 4 * 1024^2, down = 4 * 1024^2 },
 		speed = { up = 5 * 1024^2, down = 5 * 1024^2 },
 		autoscale = false

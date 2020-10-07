@@ -32,8 +32,12 @@ rules.titlebar_exeptions = {
 	class = { "Cavalcade", "Clipflap", "Steam" }
 }
 
-rules.maximized = {
-	class = { "Emacs24" }
+rules.code = {
+	class = { "Gvim", "Emacs" }
+}
+
+rules.web_tag = {
+    class = { "Firefox" },
 }
 
 -- Build rule table
@@ -53,16 +57,16 @@ function rules:init(args)
 			properties = args.base_properties or self.base_properties
 		},
 		{
+			rule_any   = args.web_tag,
+			properties = { tag = "WEB" }
+		},
+        {
 			rule_any   = args.floating_any or self.floating_any,
 			properties = { floating = true }
 		},
 		{
-			rule_any   = self.maximized,
-			callback = function(c)
-				c.maximized = true
-				redtitle.cut_all({ c })
-				c.height = c.screen.workarea.height - 2 * c.border_width
-			end
+			rule_any   = self.code,
+			properties = { tag = "CODE" }
 		},
 		{
 			rule_any   = { type = { "normal", "dialog" }},

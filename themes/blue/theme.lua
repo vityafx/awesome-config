@@ -9,13 +9,18 @@ local wa = mouse.screen.workarea
 -- Color scheme
 -----------------------------------------------------------------------------------------------------------------------
 theme.color = {
-	main      = "#064E71",
-	gray      = "#575757",
+	--main      = "#064E71",
+    main      = "#F4A460",
+	--gray      = "#575757",
+    --gray      = "#A0522D",
+    gray      = "#8B4513",
 	bg        = "#161616",
 	bg_second = "#181818",
 	wibox     = "#202020",
-	icon      = "#a0a0a0",
-	text      = "#aaaaaa",
+	--icon      = "#a0a0a0",
+	icon      = "#CD853F",
+	-- text      = "#aaaaaa",
+	text      = "#D2691E",
 	urgent    = "#B32601",
 	highlight = "#ffffff",
 
@@ -35,8 +40,8 @@ theme.homedir = os.getenv("HOME")
 ------------------------------------------------------------
 
 theme.panel_height        = 36 -- panel height
-theme.border_width        = 4  -- window border width
-theme.useless_gap         = 4  -- useless gap
+theme.border_width        = 1  -- window border width
+theme.useless_gap         = 0  -- useless gap
 
 theme.cellnum = { x = 96, y = 58 } -- grid layout property
 
@@ -102,7 +107,7 @@ theme.desktop.line_height = 18
 
 theme.desktop.color = {
 	main  = theme.color.main,
-	gray  = theme.color.gray_desktop or "#404040",
+	gray  = theme.color.icon,
 	wibox = theme.color.bg .. "00"
 }
 
@@ -177,18 +182,20 @@ theme.desktop.sline = {
 --------------------------------------------------------------------------------
 theme.desktop.grid = {
 	width  = { 520, 520, 520 },
-	height = { 180, 160, 160, 138, 18 },
+	height = { 180, 180, 18, 18, 180, 180 },
 	edge   = { width = { 60, 60 }, height = { 40, 40 } }
 }
 
 theme.desktop.places = {
-	netspeed = { 1, 1 },
-	ssdspeed = { 2, 1 },
-	hddspeed = { 3, 1 },
-	cpumem   = { 1, 2 },
-	transm   = { 1, 3 },
-	disks    = { 1, 4 },
-	thermal  = { 1, 5 }
+	netspeed  = { 3, 2 },
+	ssdspeed  = { 2, 1 },
+	nvmespeed = { 3, 1 },
+	hddspeed  = { 1, 1 },
+	cpumem    = { 1, 2 },
+	transm    = { 1, 3 },
+	disks     = { 1, 4 },
+	thermal   = { 2, 3 },
+	thermal2  = { 2, 4 }
 }
 
 
@@ -410,7 +417,8 @@ theme.widget.minitray = {
 	color        = { wibox = theme.color.wibox, border = theme.color.wibox },
 	set_position = function()
 		return { x = mouse.screen.workarea.x + mouse.screen.workarea.width,
-		         y = mouse.screen.workarea.y + mouse.screen.workarea.height }
+		         y = mouse.screen.workarea.y }
+		         -- y = mouse.screen.workarea.y + mouse.screen.workarea.height }
 	end,
 }
 
@@ -712,8 +720,8 @@ theme.naughty.base = {
 	font         = theme.fonts.main,
 	bg           = theme.color.wibox,
 	fg           = theme.color.text,
-	height       = theme.float.notify.geometry.height + 500,
-	width        = theme.float.notify.geometry.width + 1000,
+	height       = theme.float.notify.geometry.height,
+	width        = theme.float.notify.geometry.width,
 	border_width = 4,
 	border_color = theme.color.wibox
 }
