@@ -2,6 +2,9 @@
 --                                                  Orange theme                                                     --
 -----------------------------------------------------------------------------------------------------------------------
 local awful = require("awful")
+local beautiful = require("beautiful")
+
+local dpi = beautiful.xresources.apply_dpi
 
 local theme = {}
 local wa = mouse.screen.workarea
@@ -34,11 +37,11 @@ theme.homedir = os.getenv("HOME")
 -- Main config
 ------------------------------------------------------------
 
-theme.panel_height        = 36 -- panel height
-theme.border_width        = 4  -- window border width
-theme.useless_gap         = 4  -- useless gap
+theme.panel_height        = dpi(36) -- panel height
+theme.border_width        = dpi(4)  -- window border width
+theme.useless_gap         = dpi(4)  -- useless gap
 
-theme.cellnum = { x = 96, y = 58 } -- grid layout property
+theme.cellnum = { x = dpi(96), y = dpi(58) } -- grid layout property
 
 theme.wallpaper = theme.path .. "/wallpaper/custom.png" -- wallpaper file
 
